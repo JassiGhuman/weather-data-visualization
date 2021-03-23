@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+    <div > Hello</div>
+    <!-- create a dom for ECharts -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var chartDom = document.getElementById('main');
+        var myChart = echarts.init(chartDom);
+        //get data
+        $.get('data.json').done(function (input_data) {
+                    myChart.setOption({
+                        title: {
+                            text: 'weather data'
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data : ["cityA", "cityB", "cityC", "cityD", "cityE", "cityF"]
+                            //data: input_data.categories
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: ["one", "two", "three", "four", "five", "six", "seven"]
+                            //data: input_data.date_time
+                            
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                    
+                        series: input_data.more,
+
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                    });
+             });
+    </script>
+</body>
+</html>
+
+

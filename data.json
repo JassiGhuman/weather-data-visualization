@@ -1,0 +1,37 @@
+
+{
+"categories": ["cityA", "cityB", "cityC", "cityD", "cityE", "cityF"],
+"more":[
+    {
+        "name": "cityA",
+        "type": "line",
+        "data": [120, 132, 1, 134, 90, 230, 210]
+    },
+    {
+        "name": "cityB",
+        "type": "line",
+        "data": [120, 132, 101, 134, 0, 230, 210]
+    },
+    {
+        "name": "cityC",
+        "type": "line",
+        "data": [120, 132, 201, 134, 90, 230, 210]
+    },
+    {
+        "name": "cityD",
+        "type": "line",
+        "data": [10, 132, 101, 134, 90, 230, 210]
+    },
+    {
+        "name": "cityE",
+        "type": "line",
+        "data": [120, 132, 101, 13, 30, 230, 20]
+    },
+    {
+        "name": "cityF",
+        "type": "line",
+        "data": [220, 182, 191, 234, 290, 330, 310]
+    }
+],
+"date_time": ["one", "two", "three", "four", "five", "six", "seven"]
+}
