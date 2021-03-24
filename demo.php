@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
+<title>(runoob.com)</title>
 <style>
 .error {color: #FF0000;}
 </style>
@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $emailErr = "Email is required";
    } else {
       $email = test_input($_POST["email"]);
-      // 检测邮箱是否合法
+      // check email
       if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)) {
-         $emailErr = "非法邮箱格式"; 
+         $emailErr = "illegal email address"; 
       }
    }
      
@@ -39,9 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $website = "";
    } else {
       $website = test_input($_POST["website"]);
-      // 检测 URL 地址是否合法
+      // check URL address
      if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)) {
-         $websiteErr = "非法的 URL 的地址"; 
+         $websiteErr = "illegal URL address"; 
       }
    }
 
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    }
 
    if (empty($_POST["gender"])) {
-      $genderErr = "性别是必需的";
+      $genderErr = "gender is required";
    } else {
       $gender = test_input($_POST["gender"]);
    }
@@ -67,29 +67,29 @@ function test_input($data) {
 ?>
 
 <h2>PHP formtest</h2>
-<p><span class="error">* 必需字段。</span></p>
+<p><span class="error">* required</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-   名字: <input type="text" name="name">
+   Name: <input type="text" name="name">
    <span class="error">* <?php echo $nameErr;?></span>
    <br><br>
    E-mail: <input type="text" name="email">
    <span class="error">* <?php echo $emailErr;?></span>
    <br><br>
-   网址: <input type="text" name="website">
+   URL: <input type="text" name="website">
    <span class="error"><?php echo $websiteErr;?></span>
    <br><br>
-   备注: <textarea name="comment" rows="5" cols="40"></textarea>
+   Note: <textarea name="comment" rows="5" cols="40"></textarea>
    <br><br>
-   性别:
-   <input type="radio" name="gender" value="female">女
-   <input type="radio" name="gender" value="male">男
+   gender:
+   <input type="radio" name="gender" value="female">F
+   <input type="radio" name="gender" value="male">M
    <span class="error">* <?php echo $genderErr;?></span>
    <br><br>
    <input type="submit" name="submit" value="Submit"> 
 </form>
 
 <?php
-echo "<h2>您输入的内容是:</h2>";
+echo "<h2>Your input content:</h2>";
 echo $name;
 echo "<br>";
 echo $email;
