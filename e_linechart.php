@@ -36,67 +36,70 @@ function get_input($data) {
 </form>
 
 <?php
-echo "<h2>The input content is:</h2>";
-echo $city_name;
-echo $category_name;
-echo "<br>";
+if ($city_name!=null && $category_name!=null){
+    echo "<h2>The input content is:</h2>";
+    echo $city_name;
+    echo $category_name;
+    echo "<br>";
 
-//variable to connect database
-$server_name = "localhost";
-$user_name = "root";
-$user_password = "";
-$database_name = "weather data";
+    //variable to connect database
+    $server_name = "localhost";
+    $user_name = "root";
+    $user_password = "";
+    $database_name = "weather data";
 
-// create connection 
-$con =mysqli_connect($server_name, $user_name, $user_password, $database_name); 
-// test  connection
-if (mysqli_connect_errno()) 
-{ 
-  echo "Failed to connect to MySQL: " . mysqli_connect_error(); 
-} 
- 
-class line_data_element{
-    public $name = "";
-    public $type = "line";
-    public $data = null;
- }
+    // create connection 
+    $con =mysqli_connect($server_name, $user_name, $user_password, $database_name); 
+    // test  connection
+    if (mysqli_connect_errno()) 
+    { 
+    echo "Failed to connect to MySQL: " . mysqli_connect_error(); 
+    } 
+    
+    class line_data_element{
+        public $name = "";
+        public $type = "line";
+        public $data = null;
+    }
 
- class full_data{
-   public $xAxis = null;
-   public $sereis = null;
-} 
-$sql = "SELECT date_time,{$city_name} FROM {$category_name}"; 
-$result = mysqli_query($con,$sql); 
+    class full_data{
+    public $xAxis = null;
+    public $sereis = null;
+    } 
+    $sql = "SELECT date_time,{$city_name} FROM {$category_name}"; 
+    $result = mysqli_query($con,$sql); 
 
-//x axis
-$date_arr = array();
-//collect city names
-$category_arr = array();
-//
-$data_array = array();
-array_push($category_arr,$city_name);
+    //x axis
+    $date_arr = array();
+    //collect city names
+    $category_arr = array();
+    //
+    $data_array = array();
+    array_push($category_arr,$city_name);
 
-while($row = mysqli_fetch_array($result)) { 
- 
-  $date_arr[] = $row['date_time'] ;
-  $data_array[] = $row[$city_name];
-} 
-$line_el = new line_data_element();
-$line_el->data = $data_array;
-$line_el->name = $city_name;
+    while($row = mysqli_fetch_array($result)) { 
+    
+    $date_arr[] = $row['date_time'] ;
+    $data_array[] = $row[$city_name];
+    } 
+    $line_el = new line_data_element();
+    $line_el->data = $data_array;
+    $line_el->name = $city_name;
 
-$pass_data = new full_data();
-$pass_data->xAxis = $date_arr;
-$pass_data->sereis = $line_el;
+    $pass_data = new full_data();
+    $pass_data->xAxis = $date_arr;
+    $pass_data->sereis = $line_el;
 
-// echo $pass_data; 
-$pass_data_json = json_encode($pass_data);
+    // echo $pass_data; 
+    $pass_data_json = json_encode($pass_data);
 
-// //write json file
-file_put_contents('full_data.json', $pass_data_json);
+    // //write json file
+    file_put_contents('full_data.json', $pass_data_json);
 
-// end connection
-mysqli_close($con); 
+    // end connection
+    mysqli_close($con); 
+}
+
 
 ?>
 

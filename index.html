@@ -34,13 +34,12 @@
   <div class="overlay"></div>
   <div class="container">
 	<h1 class="cursive">Weather Forcast prediction1</h1>
-	<h2 class="sub">Historical and real-time weather data for 30+ cities! </h2>
+	<h2 class="sub">Historical weather data for 30+ cities! </h2>
 	<div class="mailing-list" style="margin-top: -10px;">
 	  <h3 class="mailing-list-heading">Pick a city!</h3>
 	  <div class="row">
 		<form class="form-inline">
 		  <input class="btn btn-danger" type="button" value="Historical Data" style="margin-right: 30px;" onclick=javascrtpt:historyPage() />
-		  <input class="btn btn-danger" type="button" value="Real-time Weather" onclick=javascrtpt:realtimePage() />
 		</form>
 	  </div>
 	</div>
@@ -75,15 +74,10 @@
 <script src="js/front.js"></script> -->
 <script>
     function historyPage(){
-     window.location.href=("./linechart.html");
+     window.location.href=("./e_linechart.php");
 	 console.log("history")
     }
 
-	function realtimePage(){
-     window.location.href=("./piechart.html");
-	 console.log("realtime")
-    }
-	
 </script>
 
 </html>
