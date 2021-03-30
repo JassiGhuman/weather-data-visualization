@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>(runoob.com)</title>
+<title>Weather Wizard</title>
 </head>
 <body> 
 
@@ -26,7 +26,7 @@ function get_input($data) {
 ?>
 
 <!-- form to get user input -->
-<h2>PHP formtest</h2>
+<h2>Weather Wizard Vizualization</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
    City Name: <input type="text" name="city_name">
    <br><br>
