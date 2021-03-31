@@ -2,111 +2,52 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap and Font Awesome css-->
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <!-- <link rel="stylesheet" href="css/bootstrap.min.css">  -->
-
-    <!-- Google fonts-->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Pacifico">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <!-- Theme stylesheet-->
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="css/custom.css">
-    <!-- Custom stylesheet for Navbar-->
-    <link rel="stylesheet" href="css/navbar.css">
-
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js">
+    </script>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-
-
-
-    <div style="background-image: url('img/video-bg.jpg')" class="main">
-        <!-- video background-->
-        <!-- replace URLs with your video content URL-->
-        <video id="video-background" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
-	<source src="http://ondrejsvestka.cz/video/silver-lining-video.webm" type="video/webm">
-	<source src="http://ondrejsvestka.cz/video/silver-lining-video.mp4" type="video/mp4">
-  </video>
-        <div class="overlay"></div>
-
-        <div class="container">
-            <div class="topnav" id="myTopnav">
-                <a href=".\index.html" class="active">Home</a>
-                <a href=".\e_linechart.php">Visualizations</a>
-                <a href=".\linechart.html">Contact</a>
-                <a href=".\piechart.html">About</a>
-                <a href=".\login.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                    <i class="fa fa-bars"></i>
-                </a>
-            </div>
-        </div>
-
-
-        <div class="container">
-            <h1 class="cursive">Weather Wizard Data Vizualization</h1>
-            <h2 class="sub">Historical weather data for 30+ cities! </h2>
-            <div class="mailing-list" style="margin-top: -10px;">
-                <h3 class="mailing-list-heading">Pick a city!</h3>
-                <div class="row">
-                    <form class="form-inline">
-                        <input class="btn btn-danger" type="button" value="Historical Data" style="margin-right: 30px;" onclick=javascrtpt:historyPage() />
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>Copyright &copy; 2021. All rights reserved. &copy;<a target="_blank" href="#">Yilin Wang , Jaskirat Singh;</a></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="credit"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="login">
+        <h1>Weather Wizard SignIN</h1>
+        <form id="loginForm">
+            <input type="text" name="user" placeholder="Username" required="required" />
+            <input type="password" name="password" placeholder="Password" required="required" />
+            <button type="button" id="loginButton" class="btn btn-primary btn-block btn-large" value="Login">Login</button>
+            <div>&nbsp;</div>
+            <div id="err"></div>
+        </form>
     </div>
-    <!--<div id="style-switch" class="collapse">
-  <h4 class="text-uppercase">Select theme variant</h4>
-  <form class="mb-small">
-	<select name="page" id="page" class="form-control">
-	  <option value="">select variant</option>
-	  <option value="index.html">image background</option>
-	  <option value="video.html">video background</option>
-	</select>
-  </form>
-</div>-->
-    <!-- JAVASCRIPT FILES -->
-    <!-- <script src="javascripts/vendor/jquery-1.11.0.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.cookie.js"></script>
-<script src="js/front.js"></script> -->
+
+    <!--JSON.stringify($data.responseText);-->
     <script>
-        function historyPage() {
-            window.location.href = ("./e_linechart.php");
-            console.log("history")
+        function success($data) {
+            console.log("Login OK: " + JSON.stringify($data));
+            window.location = "dashboard.html";
         }
 
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
+        function failure($data) {
+            console.log("Login Failed: " + JSON.stringify($data));
+            $("#err").text("Login Failed")
         }
+
+        function always($data) {
+            console.log("Login Request Processed: " + JSON.stringify($data));
+        }
+
+        function login() {
+            $.get("login_user.php",
+                $("#loginForm").serialize()).done(success).fail(failure).always(always);
+            return false;
+        }
+
+        // Ready Function
+        $(document).ready(function() {
+            $("#loginButton").click(login);
+        });
     </script>
+
+</body>
 
 </html>

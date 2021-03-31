@@ -52,11 +52,11 @@ $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pr
 
 <div class="container">
 <div class="topnav" id="myTopnav">
-	<a href=".\index.html" class="active">Home</a>
+	<a href=".\dashboard.html" class="active">Home</a>
 	<a href=".\e_linechart.php">Visualizations</a>
-	<a href="#contact">Contact</a>
-	<a href="#about">About</a>
-	<a href=".\login.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
+	<a href=".\linechart.html">Contact</a>
+    <a href=".\piechart.html">About</a>
+    <a href=".\index.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
 	<a href="javascript:void(0);" class="icon" onclick="myFunction()">
 	  <i class="fa fa-bars"></i>
 	</a>
