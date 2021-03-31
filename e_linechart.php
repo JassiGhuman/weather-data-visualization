@@ -51,16 +51,17 @@ $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pr
 
 
 <div class="container">
-<div class="topnav" id="myTopnav">
-	<a href=".\dashboard.html" class="active">Home</a>
-	<a href=".\e_linechart.php">Visualizations</a>
-	<a href=".\linechart.html">Contact</a>
-    <a href=".\piechart.html">About</a>
-    <a href=".\index.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
-	<a href="javascript:void(0);" class="icon" onclick="myFunction()">
-	  <i class="fa fa-bars"></i>
-	</a>
-</div>
+    <div class="topnav" id="myTopnav">
+        <a href=".\dashboard.html" class="active">Home</a>
+        <a href=".\e_linechart.php">Line Chart</a>
+        <a href=".\barchart.php">Bar Chart</a>
+        <a href=".\linechart.html">Contact</a>
+        <a href=".\piechart.html">About</a>
+        <a href=".\index.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
 </div>
 
 
@@ -213,17 +214,17 @@ if ($city_name!=null && $category_name!=null){
     </script>
 
 <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>Copyright &copy; 2021. All rights reserved. &copy;<a target="_blank" href="#">Yilin Wang , Jaskirat Singh;</a></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p class="credit"></p>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Copyright &copy; 2021. All rights reserved. &copy;<a target="_blank" href="#">Yilin Wang , Jaskirat Singh;</a></p>
+            </div>
+            <div class="col-md-6">
+                <p class="credit"></p>
             </div>
         </div>
+    </div>
+</div>
 
 </body>
 </html>
