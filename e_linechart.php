@@ -3,9 +3,28 @@
 <head>
 <meta charset="utf-8">
 <title>Weather Wizard</title>
+<!-- Bootstrap and Font Awesome css-->
+<link rel="stylesheet" href="css/font-awesome.css">
+<!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+<!-- Google fonts-->
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Pacifico">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+<!-- Theme stylesheet-->
+<link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+<!-- Style sheet for Navbar-->
+<link rel="stylesheet" href="css/navbar.css">
 </head>
 <body> 
-
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>
 <?php
 // Define the variable and set to null by default
 $city_name = $category_name =  "";
@@ -30,8 +49,23 @@ $cities=array("Vancouver", "Portland", 'San Francisco', "Seattle", "Los Angeles"
 $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pressure', 'temperature_per_day' => 'Temperature', 'wind_speed_per_day' => 'Wind Speed');
 ?>
 
+
+<div class="container">
+<div class="topnav" id="myTopnav">
+	<a href=".\index.html" class="active">Home</a>
+	<a href=".\e_linechart.php">Visualizations</a>
+	<a href="#contact">Contact</a>
+	<a href="#about">About</a>
+	<a href=".\login.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
+	<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+	  <i class="fa fa-bars"></i>
+	</a>
+</div>
+</div>
+
+
 <!-- form to get user input -->
-<h2>Weather Wizard Vizualization</h2>
+<h2 style="color:black;"> Weather Wizard Vizualization</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
    City Name: <!--<input type="text" name="c1"> -->
    <select name="city_name" required>
@@ -177,6 +211,19 @@ if ($city_name!=null && $category_name!=null){
     
              
     </script>
+
+<div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Copyright &copy; 2021. All rights reserved. &copy;<a target="_blank" href="#">Yilin Wang , Jaskirat Singh;</a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="credit"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </body>
 </html>
