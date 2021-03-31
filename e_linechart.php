@@ -35,7 +35,7 @@ $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pr
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
    City Name: <!--<input type="text" name="c1"> -->
    <select name="city_name" required>
-   <!--<option value="SanDiego">San Diego</option> -->
+   <option value="">Select City</option>
         <?php
         foreach ($cities as $value) {
         echo "<option value='".$value."'>$value</option>";
@@ -45,6 +45,7 @@ $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pr
    <br><br>
    Category Name: <!-- <input type="text" name="category_name"> -->
    <select name="category_name" required>
+   <option value="" >Select Category</option>
         <?php
         foreach ($categories as $key => $value) {
         echo "<option value=$key>$value</option>";
@@ -58,7 +59,8 @@ $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pr
 
 <?php
 if ($city_name!=null && $category_name!=null){
-    //echo "Selected City: ".$city_name." &  Category: ".$category_name."<br>";
+    echo "<br><b>Selected City: </b>".$city_name."<br>";
+    echo "<b>Selected Category: </b>".$category_name."<br><br><br>";
     //echo $c1;
     //echo "<br>";
 
