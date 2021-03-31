@@ -1,5 +1,97 @@
+<html>
+    <head>    
+        <title>Weather Wizard</title>
+        <meta charset="utf-8">
+        
+        <!-- Bootstrap and Font Awesome css-->
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+        <!-- Google fonts-->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Pacifico">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+        <!-- Theme stylesheet-->
+        <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+        <!-- Style sheet for Navbar-->
+        <link rel="stylesheet" href="css/navbar.css">
+
+        <!-- FusionCharts Library -->
+        <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+        <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+        <!--
+            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
+            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.zune.js"></script>
+            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.carbon.js"></script>
+            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.ocean.js"></script>
+        -->
+    </head>
+
+    <body>
+
 <?php
 
+    // Define the variable and set to null by default
+    $selectedDate = $cat_name =  "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {   
+        $selectedDate = get_input($_POST["selectedDate"]);
+        $cat_name = get_input($_POST["cat_name"]);
+    }
+
+    function get_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+    }
+    $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pressure', 'temperature_per_day' => 'Temperature', 'wind_speed_per_day' => 'Wind Speed');
+?>
+
+
+<div class="container">
+    <div class="topnav" id="myTopnav">
+        <a href=".\dashboard.html" class="active">Home</a>
+        <a href=".\e_linechart.php">Line Chart</a>
+        <a href=".\barchart.php">Bar Chart</a>
+        <a href=".\linechart.html">Contact</a>
+        <a href=".\piechart.html">About</a>
+        <a href=".\index.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+</div>
+
+<h2 style="color:black;"> Weather Wizard Bar Chart Vizualization for Specific Date</h2>
+
+
+<!-- form to get user input -->
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+   
+    <label for="selectedDate">Date:</label>
+    <input type="date" id="selectedDate" name="selectedDate">
+
+    <br>
+    <div class="danger">
+        <p><strong>Note!</strong> Please enter date between 1-OCT-2012  to  28-OCT-2017 only  </p>
+    </div>
+    <br>
+
+    <label for="cat_name">Category Name:</label>
+    <select name="cat_name" required>
+        <option value="" >Select Category</option>
+        <?php
+            foreach ($categories as $key => $value) {
+            echo "<option value=$key>$value</option>";
+            }
+        ?>
+    </select>
+   <br><br>
+
+   <input type="submit" name="submit" value="Submit"> 
+</form>
+
+
+<?php
     /* Include the `../src/fusioncharts.php` file that contains functions to embed the charts.*/
     include("fusioncharts.php");
     header('Content-type: text/html');
@@ -21,9 +113,15 @@
     
     //SQL Query
     //$sql = "SELECT * FROM users where username = '". $_GET["user"] ."'  && password = '".$_GET["password"]."'";
-    $sql = "SELECT * FROM temperature_per_day where date_time = '2012-10-03'";
-    //echo $sql; 
+    //$sql = "SELECT * FROM temperature_per_day where date_time = '2012-10-03'";
+    if($selectedDate==null){
+        $sql = "SELECT * FROM temperature_per_day where date_time = '2012-10-03'";
+        $selectedDate = '2012-10-03';
+    }
+    else
+        $sql = "SELECT * FROM `".$cat_name."` where date_time = '".$selectedDate."'";
 
+    //echo $sql."<br>"; 
     /*
     // Query to get columns from table
     $query = $con->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'weather data' AND TABLE_NAME = 'temperature_per_day'");
@@ -61,43 +159,25 @@
     mysqli_close($con); 
 ?>
 
-  <html>
-
-    <head>    
-        <title>Weather Wizard</title>
-        <meta charset="utf-8">
-        
-        <!-- Bootstrap and Font Awesome css-->
-        <link rel="stylesheet" href="css/font-awesome.css">
-        <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
-        <!-- Google fonts-->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Pacifico">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-        <!-- Theme stylesheet-->
-        <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
-        <!-- Style sheet for Navbar-->
-        <link rel="stylesheet" href="css/navbar.css">
-
-        <!-- FusionCharts Library -->
-        <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-        <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
-        <!--
-            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.gammel.js"></script>
-            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.zune.js"></script>
-            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.carbon.js"></script>
-            <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.ocean.js"></script>
-        -->
-    </head>
-
-    <body>
-
 <?php
+$category = ucwords(substr($cat_name, 0, strpos($cat_name, "_")));
+if($category === "Temperature")
+    {$unit = "Kelvin";}   
+elseif($category === "Pressure")
+    {$unit = "Pascal";}
+elseif($category === "Wind"){
+    $unit = "mph";
+    $category = "Wind Speed";
+}
+else{
+    $unit = "Percentage";
+}
         $arrChartConfig = array(
           "chart" => array(
-            "caption" => "Temperature Vs Cities Plot",
-            "subCaption" => "For Particular Date", 
+            "caption" => $category." Vs Cities Plot",
+            "subCaption" => "Date:".$selectedDate, 
             "xAxisName" => "Cities",
-            "yAxisName" => "Temperature (in Kelvin)", 
+            "yAxisName" => $category." (in ".$unit.")", 
             "numberSuffix" => "", 
             "theme" => "fusion"
             )
@@ -145,25 +225,19 @@ $Chart->render();
 
 ?>
 
-<div class="container">
-    <div class="topnav" id="myTopnav">
-        <a href=".\dashboard.html" class="active">Home</a>
-        <a href=".\e_linechart.php">Line Chart</a>
-        <a href=".\barchart.php">Bar Chart</a>
-        <a href=".\linechart.html">Contact</a>
-        <a href=".\piechart.html">About</a>
-        <a href=".\index.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-        </a>
-    </div>
-</div>
 
-<h2 style="color:black;"> Weather Wizard Bar Chart Vizualization</h2>
+
+<?php
+//if ($selectedDate!=null && $cat_name!=null){
+    echo "<br><b>Selected Date: </b>".$selectedDate."<br>";
+    echo "<b>Selected Category: </b>".$category."<br><br><br>";
+//}
+?>
+
+
 <div id="chart-container">Chart will render here!</div>
 <br/>
 <br/>
-<a href="./dashboard.html">Go Back</a>
 
 <div class="footer">
     <div class="container">
