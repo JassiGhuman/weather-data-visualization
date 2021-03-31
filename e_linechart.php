@@ -13,7 +13,7 @@ $city_name = $category_name =  "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {   
     $city_name = get_input($_POST["city_name"]);
     $category_name = get_input($_POST["category_name"]);
-    $c1 = get_input($_POST["c1"]);
+    //$c1 = get_input($_POST["c1"]);
 }
 
 function get_input($data) {
@@ -22,64 +22,23 @@ function get_input($data) {
    $data = htmlspecialchars($data);
    return $data;
 }
-?>
-
-
-
-
-<?php
-
-function dynamic_select($the_array, $element_name, $label = '', $init_value = '') {
-    $menu = '';
-    if ($label != '') $menu .= '
-    	<label for="'.$element_name.'">'.$label.'</label>';
-    $menu .= '
-    	<select name="'.$element_name.'" id="'.$element_name.'">';
-    if (empty($_REQUEST[$element_name])) {
-        $curr_val = $init_value;
-    } else {
-        $curr_val = $_REQUEST[$element_name];
-    }
-    foreach ($the_array as $key => $value) {
-        $menu .= '
-			<option value="'.$key.'"';
-        if ($key == $curr_val) $menu .= ' selected="selected"';
-        $menu .= '>'.$value.'</option>';
-    }
-    $menu .= '
-    	</select>';
-    return $menu;
-}
-
-
-
 
 $cities=array("Vancouver", "Portland", 'San Francisco', "Seattle", "Los Angeles", "San Diego", "Las Vegas", "Phoenix", "Albuquerque", "Denver", "San Antonio"
 , "Dallas", "Houston", "Kansas City", "Minneapolis", "Saint Louis", "Chicago", "Nashville", "Indianapolis", "Atlanta", "Detroit", "Jacksonville", "Charlotte"
 , "Miami", "Pittsburgh", "Toronto", "Philadelphia", "New York", "Montreal", "Boston", "Beersheba", "Tel Aviv District", "Eilat", "Haifa", "Nahariyya");
 
 $categories = array ('humidity_per_day' => 'Humidity', 'pressure_per_day' => 'Pressure', 'temperature_per_day' => 'Temperature', 'wind_speed_per_day' => 'Wind Speed');
-
-$month = array (1=>"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");  
-$colors = array("red", "green", "blue", "yellow");
-$curr_month = date("m"); 
-//echo dynamic_select($month, 'month', 'Select a month', $curr_month);
-//echo dynamic_select($categories, '$category1', 'Choose Category', 'pressure_per_day');
 ?>
-
-
-
-
 
 <!-- form to get user input -->
 <h2>Weather Wizard Vizualization</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
-   City Name: <input type="text" name="city_name">
-   <select name="c1" required>
-   <option value="SanDiego">San Diego</option>
+   City Name: <!--<input type="text" name="c1"> -->
+   <select name="city_name" required>
+   <!--<option value="SanDiego">San Diego</option> -->
         <?php
         foreach ($cities as $value) {
-        echo "<option value={$value}>$value</option>";
+        echo "<option value='".$value."'>$value</option>";
         }?>
     </select>
 
@@ -99,14 +58,9 @@ $curr_month = date("m");
 
 <?php
 if ($city_name!=null && $category_name!=null){
-    echo "<h2>Selected City: ";
-    echo $city_name;
-    echo " & Category: ";
-    echo $category_name;
-    echo "</h2>";
-    echo $c1;
-    //$("#err").text("Login Failed")
-    echo "<br>";
+    //echo "Selected City: ".$city_name." &  Category: ".$category_name."<br>";
+    //echo $c1;
+    //echo "<br>";
 
     //variable to connect database
     $server_name = "localhost";
@@ -131,8 +85,11 @@ if ($city_name!=null && $category_name!=null){
     class full_data{
     public $xAxis = null;
     public $sereis = null;
-    } 
-    $sql = "SELECT date_time,{$city_name} FROM {$category_name}"; 
+    }
+    
+    //$sql = "SELECT date_time,{$city_name} FROM {$category_name}";
+    $sql = "SELECT date_time,`".$city_name."` FROM ".$category_name;
+    //echo $sql;
     $result = mysqli_query($con,$sql); 
 
     //x axis
@@ -144,10 +101,11 @@ if ($city_name!=null && $category_name!=null){
     array_push($category_arr,$city_name);
 
     while($row = mysqli_fetch_array($result)) { 
-    
+    #echo "#### ".$row[$city_name];
     $date_arr[] = $row['date_time'] ;
     $data_array[] = $row[$city_name];
-    } 
+    }
+
     $line_el = new line_data_element();
     $line_el->data = $data_array;
     $line_el->name = $city_name;
@@ -165,14 +123,12 @@ if ($city_name!=null && $category_name!=null){
     // end connection
     mysqli_close($con); 
 }
-
-
 ?>
 
 <script src="js/echarts.min.js"></script>
 <script src="js/jquery-1.11.0.min.js"></script>
 <!-- dom for visualization -->
-<div id="main" style="width: 1200px;height:800px;"></div>
+<div id="main" style="width: 80%;height:500px;"></div>
 
 <script type="text/javascript">
         
@@ -185,7 +141,7 @@ if ($city_name!=null && $category_name!=null){
         $.get('full_data.json').done(function (data) {
                     myChart.setOption({
                         title: {
-                            text: 'weather data'
+                            text: "<?php echo $category_name.' Data ' ;?>"
                         },
                         tooltip: {
                             trigger: 'axis'
@@ -222,6 +178,3 @@ if ($city_name!=null && $category_name!=null){
 
 </body>
 </html>
-
-
-
