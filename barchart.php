@@ -52,8 +52,8 @@
         <a href=".\dashboard.html" class="active">Home</a>
         <a href=".\e_linechart.php">Line Chart</a>
         <a href=".\barchart.php">Bar Chart</a>
-        <a href=".\linechart.html">Contact</a>
-        <a href=".\piechart.html">About</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
         <a href=".\index.html" class="search-container"><i class="fa fa-fw fa-user"></i> Login</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
