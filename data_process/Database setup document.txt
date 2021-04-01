@@ -1,0 +1,3 @@
+1. create a database with name "weather data"
+2. Import 5 .dbf files(humidity_per_day, pressure_per_day, temperature_per_day, wind_speed_per_day,users) in that database 
+and you will have 5 tables with data configured in the database.
